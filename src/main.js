@@ -37,7 +37,7 @@ function renderJobs() {
     // Add custom data for later use (e.g., editing/deleting)
     clone.querySelector('.job-card').dataset.id = job.id;
 
-    jobListEl.appendChild(clone);
+    jobList.appendChild(clone);
   });
 }
 
