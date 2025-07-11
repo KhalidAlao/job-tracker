@@ -15,6 +15,27 @@
 
 <button id="add-btn">+ Add Application</button>
 
+
+<section>
+
+<form class="hide">
+  <label>Enter job information here: </label>
+<label for="job-title">Job Title: </label>
+  <input name="Job Title" id="job-title" type="text" placeholder="Job Title" required> <br>
+  <label for="company-name">Company Name:</label>
+  <input name="Company Name" id="company-name" type="text" placeholder="Company Name" required> <br>
+
+  <select id="job-status" name="Job Status" required>
+    <option value="all">All</option>
+    <option value="applied">Applied</option>
+    <option value="interview">Interview</option>
+    <option value="offer">Offer</option>
+    <option value="rejected">Rejected</option>
+  </select>
+<input type="submit" id="submit" value="Submit"> 
+  </form>
+  </section>
+ 
 <section id="controls">
   
     <select id="status-filter">
