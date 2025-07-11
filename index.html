@@ -4,18 +4,18 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Tracker Application</title>
+    <title>Job Application Tracker</title>
   </head>
   <body>
-    <div id="app"></div>
+    
     <script type="module" src="/src/main.js"></script>
-  </body>
+
   <main>
 <h2>Job Application Tracker </h2>
 
 <button id="add-btn">+ Add Application</button>
 
-<section>
+<section id="controls">
   
     <select id="status-filter">
       <option value="all">All</option>
@@ -23,12 +23,12 @@
       <option value="interview">Interview</option>
       <option value="offer">Offer</option>
       <option value="rejected">Rejected</option>
-    
-    <input type="text" id="search-input" placeholder="Search jobs..." />
     </select>
 
-  </section>
+    <input type="text" id="search-input" placeholder="Search jobs..." />
+    
 
+  </section>
   <section id="job-list">
     <!-- Job cards will be rendered here -->
   </section>
@@ -43,18 +43,6 @@
     </article>
   </template>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     </main>
+  </body>
 </html>
