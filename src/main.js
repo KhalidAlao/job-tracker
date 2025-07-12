@@ -6,6 +6,8 @@ let jobs = [];
 
 const jobList = document.getElementById("job-list");
 const template = document.getElementById("job-card-template");
+const addBtn = document.getElementById("add-btn");
+const applicationForm = document.getElementById("application-form");
 
 // Temporary test data
 jobs = [
@@ -55,3 +57,6 @@ function addJob(title, company, status) {
   renderJobs();
 }
 
+addBtn.addEventListener("click", function() {
+  applicationForm.classList.toggle('hide');
+})
