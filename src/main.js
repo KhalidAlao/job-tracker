@@ -16,6 +16,8 @@ const applicationForm = document.getElementById("application-form");
 const jobTitle = document.getElementById("job-title");
 const companyName = document.getElementById("company-name");
 const jobStatus = document.getElementById("job-status");
+const deleteBtn = document.getElementById("delete-btn");
+const editBtn= document.getElementById("edit-btn");
 
 
 
