@@ -8,7 +8,7 @@
   </head>
   <body>
     
-    <script type="module" src="/src/main.js"></script>
+    
 
   <main>
 <h2>Job Application Tracker </h2>
@@ -18,21 +18,22 @@
 
 <section>
 
-<form class="hide" id="application-form">
+<form id="application-form">
   <label>Enter job information here: </label>
 <label for="job-title">Job Title: </label>
-  <input name="Job Title" id="job-title" type="text" placeholder="Job Title" required> <br>
-  <label for="company-name">Company Name:</label>
-  <input name="Company Name" id="company-name" type="text" placeholder="Company Name" required> <br>
 
-  <select id="job-status" name="Job Status" required>
+  <input name="Job Title" id="job-title-input" type="text" placeholder="Job Title" required> <br>
+  <label for="company-name">Company Name:</label>
+  <input name="Company Name" id="company-name-input" type="text" placeholder="Company Name" required> <br>
+
+  <select id="job-status-select" name="Job Status" required>
     <option value="all">All</option>
     <option value="applied">Applied</option>
     <option value="interview">Interview</option>
     <option value="offer">Offer</option>
     <option value="rejected">Rejected</option>
   </select>
-<input type="submit" id="submit" value="Submit"> 
+<input type="submit" id="submit-btn" value="Submit"> 
   </form>
   </section>
  
@@ -61,11 +62,12 @@
       <p class="company-name"></p>
       <p class="job-status"></p>
       <p class="date-added"> </p>
-      <button class="edit-btn" id="edit-btn">Edit</button>
-      <button class="delete-btn" id="delete-btn">Delete</button>
+      <button class="edit-btn" >Edit</button>
+      <button class="delete-btn" >Delete</button>
     </article>
   </template>
 
     </main>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>

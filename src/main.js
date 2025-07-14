@@ -1,28 +1,35 @@
 import './style.css'
 
 
-
 let jobs = [];
-
 const savedJobs = localStorage.getItem("jobs");
-  if (savedJobs) {
-    jobs = JSON.parse(savedJobs);
-  }
+
+try {
+  jobs = savedJobs ? JSON.parse(savedJobs) : [];
+} catch (e) {
+  console.error("Error parsing saved jobs:", e);
+  jobs = [];
+}
+
 
 const jobList = document.getElementById("job-list");
 const template = document.getElementById("job-card-template");
 const addBtn = document.getElementById("add-btn");
 const applicationForm = document.getElementById("application-form");
-const jobTitle = document.getElementById("job-title");
-const companyName = document.getElementById("company-name");
-const jobStatus = document.getElementById("job-status");
-const deleteBtn = document.getElementById("delete-btn");
-const editBtn= document.getElementById("edit-btn");
+const jobTitleInput = document.getElementById("job-title-input");
+const companyNameInput = document.getElementById("company-name-input");
+const jobStatusSelect = document.getElementById("job-status-select");
+
 
 
 
 function renderJobs() {
   jobList.innerHTML = ''; // Clear the list
+
+  if (jobs.length === 0) {
+    jobList.innerHTML = "<p>No job applications yet.</p>";
+    return;
+  }
 
   jobs.forEach((job) => {
     const clone = template.content.cloneNode(true);
@@ -33,10 +40,12 @@ function renderJobs() {
     clone.querySelector('.job-status').textContent = `Status: ${job.status}`;
     clone.querySelector('.date-added').textContent = `Date Added: ${job.dateAdded}`;
 
-    // Add custom data for later use (e.g., editing/deleting)
+    
     clone.querySelector('.job-card').dataset.id = job.id;
 
     jobList.appendChild(clone);
+
+
   });
 }
 
@@ -44,7 +53,7 @@ renderJobs();
 
 function addJob(title, company, status) {
   const job = {
-    id: Date.now().toString(),
+    id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     title,
     company,
     status,
@@ -62,27 +71,54 @@ addBtn.addEventListener("click", function() {
   applicationForm.classList.toggle('hide');
 });
 
-applicationForm.addEventListener("submit", function() {
-event.preventDefault();
-
-const title = jobTitle.value;
-const company = companyName.value;
-const status = jobStatus.value;
 
 
+function deleteJob(id) {
 
-if (title.trim() === "" || company.trim() === "" || status === "all") {
-  alert("Please fill in any empty fields!");
+jobs = jobs.filter(job => job.id !== id );
 
-}
+localStorage.setItem("jobs", JSON.stringify(jobs));
 
-else {
+renderJobs();
+};
+
+applicationForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const title = jobTitleInput.value;
+  const company = companyNameInput.value;
+  const status = jobStatusSelect.value;
+
+  if (!title) {
+    alert("Please enter a job title!");
+    return;
+  }
+  
+  if (!company) {
+    alert("Please enter a company name!");
+    return;
+  }
+  
+  if (status === "all") {
+    alert("Please select a valid status!");
+    return;
+  }
+
   addJob(title, company, status);
-  jobTitle.value = "";
-  companyName.value = "";
-  jobStatus.value = "All";
+  jobTitleInput.value = "";
+  companyNameInput.value = "";
+  jobStatusSelect.value = "all";
   applicationForm.classList.add("hide");
-}
 
 
+});
+
+jobList.addEventListener('click', function(event) {
+  if (event.target.classList.contains('delete-btn')) {
+    const jobCard = event.target.closest('.job-card');
+    if (jobCard) {
+      const id = jobCard.dataset.id;
+      deleteJob(id);
+    }
+  }
 });
