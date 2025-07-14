@@ -39,8 +39,6 @@ function renderJobs() {
     clone.querySelector('.company-name').textContent = job.company;
     clone.querySelector('.job-status').textContent = `Status: ${job.status}`;
     clone.querySelector('.date-added').textContent = `Date Added: ${job.dateAdded}`;
-
-    
     clone.querySelector('.job-card').dataset.id = job.id;
 
     jobList.appendChild(clone);
@@ -53,7 +51,7 @@ renderJobs();
 
 function addJob(title, company, status) {
   const job = {
-    id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    id: `${Date.now()}-${Math.random().toString(36).slice(0, 1)}`,
     title,
     company,
     status,
