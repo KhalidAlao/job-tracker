@@ -37,7 +37,7 @@ function renderJobs() {
 
     clone.querySelector('.job-id').textContent = `Unique ID: ${job.id}`;
     clone.querySelector('.job-title').textContent = job.title;
-    clone.querySelector('.company-name').textContent = job.company;
+    clone.querySelector('.company-name').textContent = `Job Title: ${job.company}`;
     clone.querySelector('.job-status').textContent = `Status: ${job.status}`;
     clone.querySelector('.date-added').textContent = `Date Added: ${job.dateAdded}`;
     clone.querySelector('.job-card').dataset.id = job.id;
