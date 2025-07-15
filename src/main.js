@@ -19,6 +19,7 @@ const applicationForm = document.getElementById("application-form");
 const jobTitleInput = document.getElementById("job-title-input");
 const companyNameInput = document.getElementById("company-name-input");
 const jobStatusSelect = document.getElementById("job-status-select");
+let jobBeingEdited = null;
 
 
 
@@ -69,6 +70,20 @@ addBtn.addEventListener("click", function() {
   applicationForm.classList.toggle('hide');
 });
 
+function editJob(id) {
+  const job = jobs.find((job) => job.id === id);
+  if (!job) return;
+
+  jobBeingEdited = job;
+
+  jobTitleInput.value = job.title;
+  companyNameInput.value = job.company;
+  jobStatusSelect.value = job.status;
+
+  applicationForm.classList.remove("hide");
+
+
+}
 
 
 function deleteJob(id) {
@@ -87,26 +102,31 @@ applicationForm.addEventListener("submit", function(event) {
   const company = companyNameInput.value;
   const status = jobStatusSelect.value;
 
-  if (!title) {
-    alert("Please enter a job title!");
-    return;
-  }
-  
-  if (!company) {
-    alert("Please enter a company name!");
-    return;
-  }
-  
-  if (status === "all") {
-    alert("Please select a valid status!");
+  if (!title || !company || status === "all") {
+    alert("Please fill in all fields correctly!");
     return;
   }
 
-  addJob(title, company, status);
+  if (jobBeingEdited) {
+    
+    jobBeingEdited.title = title;
+    jobBeingEdited.company = company;
+    jobBeingEdited.status = status;
+    jobBeingEdited.dateAdded = new Date().toLocaleDateString(); 
+
+    localStorage.setItem("jobs", JSON.stringify(jobs));
+    jobBeingEdited = null; // Reset the state
+  } else {
+    
+    addJob(title, company, status);
+  }
+
+  
   jobTitleInput.value = "";
   companyNameInput.value = "";
   jobStatusSelect.value = "all";
   applicationForm.classList.add("hide");
+  renderJobs();
 
 
 });
@@ -117,6 +137,15 @@ jobList.addEventListener('click', function(event) {
     if (jobCard) {
       const id = jobCard.dataset.id;
       deleteJob(id);
+    }
+  }
+  
+
+  if (event.target.classList.contains('edit-btn')) {
+    const jobCard = event.target.closest('.job-card');
+    if (jobCard) {
+      const id = jobCard.dataset.id;
+      editJob(id);
     }
   }
 });
