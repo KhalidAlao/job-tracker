@@ -19,6 +19,7 @@ const applicationForm = document.getElementById("application-form");
 const jobTitleInput = document.getElementById("job-title-input");
 const companyNameInput = document.getElementById("company-name-input");
 const jobStatusSelect = document.getElementById("job-status-select");
+const companyLocationInput = document.getElementById("company-location-input");
 let jobBeingEdited = null;
 
 
@@ -38,6 +39,7 @@ function renderJobs() {
     clone.querySelector('.job-id').textContent = `Unique ID: ${job.id}`;
     clone.querySelector('.job-title').textContent = job.title;
     clone.querySelector('.company-name').textContent = `Job Title: ${job.company}`;
+    clone.querySelector('.company-location').textContent = `Job Location: ${job.location}`;
     clone.querySelector('.job-status').textContent = `Status: ${job.status}`;
     clone.querySelector('.date-added').textContent = `Date Added: ${job.dateAdded}`;
     clone.querySelector('.job-card').dataset.id = job.id;
@@ -50,11 +52,12 @@ function renderJobs() {
 
 renderJobs();
 
-function addJob(title, company, status) {
+function addJob(title, company, location, status) {
   const job = {
     id: `${Date.now()}-${Math.random().toString(36).slice(0, 1)}`,
     title,
     company,
+    location,
     status,
     dateAdded: new Date().toLocaleDateString(),
   };
@@ -79,6 +82,7 @@ function editJob(id) {
   jobTitleInput.value = job.title;
   companyNameInput.value = job.company;
   jobStatusSelect.value = job.status;
+  companyLocationInput.value = job.location;
 
   applicationForm.classList.remove("hide");
 
@@ -101,6 +105,7 @@ applicationForm.addEventListener("submit", function(event) {
   const title = jobTitleInput.value;
   const company = companyNameInput.value;
   const status = jobStatusSelect.value;
+  const location = companyLocationInput.value;
 
   if (!title || !company || status === "all") {
     alert("Please fill in all fields correctly!");
@@ -111,6 +116,7 @@ applicationForm.addEventListener("submit", function(event) {
     
     jobBeingEdited.title = title;
     jobBeingEdited.company = company;
+    jobBeingEdited.location = location;
     jobBeingEdited.status = status;
     jobBeingEdited.dateAdded = new Date().toLocaleDateString(); 
 
@@ -118,12 +124,13 @@ applicationForm.addEventListener("submit", function(event) {
     jobBeingEdited = null; // Reset the state
   } else {
     
-    addJob(title, company, status);
+    addJob(title, company,location , status);
   }
 
   
   jobTitleInput.value = "";
   companyNameInput.value = "";
+  companyLocationInput.value = "";
   jobStatusSelect.value = "all";
   applicationForm.classList.add("hide");
   renderJobs();
