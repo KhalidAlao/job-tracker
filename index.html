@@ -19,12 +19,15 @@
 <section>
 
 <form id="application-form">
-  <label>Enter job information here: </label>
-<label for="job-title">Job Title: </label>
+  <label>Enter job information here: </label> <br>
+<label for="job-title">Job Title: </label> 
 
   <input name="Job Title" id="job-title-input" type="text" placeholder="Job Title" required> <br>
   <label for="company-name">Company Name:</label>
   <input name="Company Name" id="company-name-input" type="text" placeholder="Company Name" required> <br>
+  <label for="company-location">Company Location:</label>
+  <input name="Company Location" id="company-location-input" type="text" placeholder="Company Location" required> <br>
+
 
   <select id="job-status-select" name="Job Status" required>
     <option value="all">All</option>
@@ -32,7 +35,7 @@
     <option value="interview">Interview</option>
     <option value="offer">Offer</option>
     <option value="rejected">Rejected</option>
-  </select>
+  </select> <br>
 <input type="submit" id="submit-btn" value="Submit"> 
   </form>
   </section>
@@ -60,6 +63,7 @@
       <h2 class="job-title"></h2>
       <p class ="job-id"> </p>
       <p class="company-name"></p>
+      <p class="company-location"> </p>
       <p class="job-status"></p>
       <p class="date-added"> </p>
       <button class="edit-btn" >Edit</button>
