@@ -21,6 +21,11 @@ const companyNameInput = document.getElementById("company-name-input");
 const jobStatusSelect = document.getElementById("job-status-select");
 const companyLocationInput = document.getElementById("company-location-input");
 const companySalaryInput = document.getElementById("company-salary-input");
+
+const statusFilter = document.getElementById("status-filter");
+const searchInput = document.getElementById("search-input");
+
+
 let jobBeingEdited = null;
 
 
