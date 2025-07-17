@@ -44,7 +44,7 @@ function renderJobs() {
 
     clone.querySelector('.job-id').textContent = `Unique ID: ${job.id}`;
     clone.querySelector('.job-title').textContent = job.title;
-    clone.querySelector('.company-name').textContent = `Job Title: ${job.company}`;
+    clone.querySelector('.company-name').textContent = `Company: ${job.company}`;
     clone.querySelector('.company-location').textContent = `Location: ${job.location}`;
     clone.querySelector('.company-salary').textContent = `£: ${job.salary}`;
     clone.querySelector('.job-status').textContent = `Status: ${job.status}`;
