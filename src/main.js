@@ -29,8 +29,6 @@ const searchInput = document.getElementById("search-input");
 let jobBeingEdited = null;
 
 
-
-
 function renderJobs() {
   jobList.innerHTML = ''; // Clear the list
 
@@ -43,7 +41,7 @@ function renderJobs() {
     const clone = template.content.cloneNode(true);
 
     clone.querySelector('.job-id').textContent = `Unique ID: ${job.id}`;
-    clone.querySelector('.job-title').textContent = job.title;
+    clone.querySelector('.job-title').textContent = `${job.title}`;
     clone.querySelector('.company-name').textContent = `Company: ${job.company}`;
     clone.querySelector('.company-location').textContent = `Location: ${job.location}`;
     clone.querySelector('.company-salary').textContent = `£: ${job.salary}`;
@@ -117,7 +115,7 @@ applicationForm.addEventListener("submit", function(event) {
   const location = companyLocationInput.value;
   const salary = companySalaryInput.value;
 
-  if (!title || !company || status === "all") {
+  if (!title || !company || status || !location || !salary === "all") {
     alert("Please fill in all fields correctly!");
     return;
   }
