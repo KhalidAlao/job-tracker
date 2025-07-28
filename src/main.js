@@ -32,12 +32,24 @@ let jobBeingEdited = null;
 function renderJobs() {
   jobList.innerHTML = ''; // Clear the list
 
-  if (jobs.length === 0) {
+  const statusValue = statusFilter.value.toLowerCase();
+  const searchValue = searchInput.value.toLowerCase();
+
+  const filteredJobs = jobs.filter( job => {
+    const matchesStatus = statusValue === "all" || job.status.toLowerCase() === statusValue;
+    const matchesSearch = job.title.toLowerCase().includes(searchValue) || 
+                          job.company.toLowerCase().includes(searchValue) || 
+                         (job.location && job.location.toLowerCase().includes(searchValue));
+
+    return matchesStatus && matchesSearch;
+  });
+
+  if (filteredJobs.length === 0) {
     jobList.innerHTML = "<p>No job applications yet.</p>";
     return;
   }
 
-  jobs.forEach((job) => {
+  filteredJobs.forEach((job) => {
     const clone = template.content.cloneNode(true);
 
     clone.querySelector('.job-id').textContent = `Unique ID: ${job.id}`;
@@ -54,6 +66,9 @@ function renderJobs() {
 
   });
 }
+
+statusFilter.addEventListener("change", renderJobs);
+searchInput.addEventListener("input", renderJobs);
 
 renderJobs();
 
@@ -115,7 +130,7 @@ applicationForm.addEventListener("submit", function(event) {
   const location = companyLocationInput.value;
   const salary = companySalaryInput.value;
 
-  if (!title || !company || status || !location || !salary === "all") {
+  if (!title || !company || status === "all" || !location || !salary ) {
     alert("Please fill in all fields correctly!");
     return;
   }
