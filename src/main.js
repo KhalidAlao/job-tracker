@@ -167,7 +167,7 @@ jobList.addEventListener('click', function(event) {
   if (event.target.classList.contains('delete-btn')) {
     const jobCard = event.target.closest('.job-card');
     if (jobCard) {
-      const id = jobCard.dataset.id;
+      const id = Number(jobCard.dataset.id);
       deleteJob(id);
     }
   }
@@ -176,7 +176,7 @@ jobList.addEventListener('click', function(event) {
   if (event.target.classList.contains('edit-btn')) {
     const jobCard = event.target.closest('.job-card');
     if (jobCard) {
-      const id = jobCard.dataset.id;
+      const id = Number(jobCard.dataset.id);
       editJob(id);
     }
   }
