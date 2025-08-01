@@ -11,6 +11,8 @@ try {
   jobs = [];
 }
 
+let currentSort = "newest first"
+
 
 const jobList = document.getElementById("job-list");
 const template = document.getElementById("job-card-template");
@@ -49,7 +51,9 @@ function renderJobs() {
     return;
   }
 
-  filteredJobs.forEach((job) => {
+  const jobsToRender = currentSort ? sortJobs(filteredJobs, currentSort) : filteredJobs;
+
+  jobsToRender.forEach((job) => {
     const clone = template.content.cloneNode(true);
 
     clone.querySelector('.job-id').textContent = `Unique ID: ${job.id}`;
@@ -161,6 +165,33 @@ applicationForm.addEventListener("submit", function(event) {
   renderJobs();
 
 
+});
+
+
+function sortJobs(jobsArray, sortMethod) {
+  const sortBy = sortMethod;
+
+  switch (sortBy) {
+    case 'newest first':
+      return [...jobsArray].sort((a, b) => b.id - a.id);
+    case 'oldest first':
+      return [...jobsArray].sort((a, b) => a.id - b.id);
+    case 'company a-z':
+      return [...jobsArray].sort((a, b) => 
+        (a.company).toLowerCase().localeCompare((b.company).toLowerCase()));
+    case 'company z-a':
+      return [...jobsArray].sort((a, b) => 
+        (b.company).toLowerCase().localeCompare((a.company).toLowerCase()));
+    default:
+      return jobsArray;
+  }
+}
+
+
+
+document.getElementById("sort-select").addEventListener("change", (e) => {
+  currentSort = e.target.value;
+  renderJobs();
 });
 
 jobList.addEventListener('click', function(event) {
