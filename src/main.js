@@ -26,6 +26,7 @@ const companySalaryInput = document.getElementById("company-salary-input");
 
 const statusFilter = document.getElementById("status-filter");
 const searchInput = document.getElementById("search-input");
+const clearBtn = document.getElementById("clear-btn");
 
 
 let jobBeingEdited = null;
@@ -96,6 +97,11 @@ function addJob(title, company, location, salary, status) {
 
 addBtn.addEventListener("click", function() {
   applicationForm.classList.toggle('hide');
+});
+
+clearBtn.addEventListener("click", function() {
+statusFilter.value = "all";
+  renderJobs();
 });
 
 function editJob(id) {
