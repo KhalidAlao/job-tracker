@@ -1,6 +1,5 @@
 import './style.css'
 
-
 let jobs = [];
 const savedJobs = localStorage.getItem("jobs");
 
@@ -125,9 +124,7 @@ function editJob(id) {
 function deleteJob(id) {
 
 jobs = jobs.filter(job => job.id !== id );
-
 localStorage.setItem("jobs", JSON.stringify(jobs));
-
 renderJobs();
 };
 
@@ -208,7 +205,6 @@ jobList.addEventListener('click', function(event) {
       deleteJob(id);
     }
   }
-  
 
   if (event.target.classList.contains('edit-btn')) {
     const jobCard = event.target.closest('.job-card');
