@@ -23,7 +23,11 @@ const jobStatusSelect = document.getElementById("job-status-select");
 const companyLocationInput = document.getElementById("company-location-input");
 const companySalaryInput = document.getElementById("company-salary-input");
 
-const statusFilter = document.getElementById("status-filter"); // change
+const statusFilter = document.querySelectorAll('#statusFilter input[type="checkbox"]');
+
+
+let filterStatuses = []; 
+
 const searchInput = document.getElementById("search-input");
 const clearBtn = document.getElementById("clear-btn");
 
@@ -34,11 +38,13 @@ let jobBeingEdited = null;
 function renderJobs() {
   jobList.innerHTML = ''; // Clear the list
 
-  const statusValue = statusFilter.value.toLowerCase(); // change
+  
   const searchValue = searchInput.value.toLowerCase();
 
+
+
   const filteredJobs = jobs.filter( job => {
-    const matchesStatus = statusValue === "all" || job.status.toLowerCase() === statusValue; // change
+    const matchesStatus = filterStatuses.length === 0 ? true : filterStatuses.includes(job.status);
     const matchesSearch = job.title.toLowerCase().includes(searchValue) || 
                           job.company.toLowerCase().includes(searchValue) || 
                          (job.location && job.location.toLowerCase().includes(searchValue));
@@ -71,7 +77,17 @@ function renderJobs() {
   });
 }
 
-statusFilter.addEventListener("change", renderJobs); // change
+document.getElementById('statusFilter').addEventListener("change", function(event) {
+  if (event.target.type === "checkbox") {
+    filterStatuses = Array.from(statusFilter)
+                          .filter(box => box.checked)
+                          .map(box => box.value);
+    renderJobs();
+  }
+});
+
+
+
 searchInput.addEventListener("input", renderJobs);
 
 renderJobs();
@@ -99,7 +115,8 @@ addBtn.addEventListener("click", function() {
 });
 
 clearBtn.addEventListener("click", function() {
-statusFilter.value = "all";
+  statusFilter.forEach(box => box.checked = false);
+  filterStatuses = [];
   renderJobs();
 });
 
