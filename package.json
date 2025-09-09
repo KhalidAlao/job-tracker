@@ -8,8 +8,7 @@
     "lint": "eslint .",
     "build": "vite build",
     "preview": "vite preview",
-      "test": "jest --passWithNoTests"
-    
+    "test": "jest --passWithNoTests"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
