@@ -36,32 +36,20 @@ let jobBeingEdited = null;
 
 
 function renderJobs() {
-  jobList.innerHTML = ''; // Clear the list
+  jobList.innerHTML = ''; 
 
-  
-  const searchValue = searchInput.value.toLowerCase();
+  const filteredJobs = filterJobs(jobs, filterStatuses, searchInput.value);
+  const jobsToRender = currentSort
+    ? sortJobs(filteredJobs, currentSort)
+    : filteredJobs;
 
-
-
-  const filteredJobs = jobs.filter( job => {
-    const matchesStatus = filterStatuses.length === 0 ? true : filterStatuses.includes(job.status);
-    const matchesSearch = job.title.toLowerCase().includes(searchValue) || 
-                          job.company.toLowerCase().includes(searchValue) || 
-                         (job.location && job.location.toLowerCase().includes(searchValue));
-
-    return matchesStatus && matchesSearch;
-  });
-
-  if (filteredJobs.length === 0) {
+  if (jobsToRender.length === 0) {
     jobList.innerHTML = "<p>No job applications yet.</p>";
     return;
   }
 
-  const jobsToRender = currentSort ? sortJobs(filteredJobs, currentSort) : filteredJobs;
-
   jobsToRender.forEach((job) => {
     const clone = template.content.cloneNode(true);
-
     clone.querySelector('.job-id').textContent = `Unique ID: ${job.id}`;
     clone.querySelector('.job-title').textContent = `${job.title}`;
     clone.querySelector('.company-name').textContent = `Company: ${job.company}`;
@@ -72,19 +60,40 @@ function renderJobs() {
     clone.querySelector('.job-card').dataset.id = job.id;
 
     jobList.appendChild(clone);
-
-
   });
 }
 
-document.getElementById('statusFilter').addEventListener("change", function(event) {
-  if (event.target.type === "checkbox") {
-    filterStatuses = Array.from(statusFilter)
-                          .filter(box => box.checked)
-                          .map(box => box.value);
-    renderJobs();
+
+function filterJobs(jobs, filterStatuses, searchInput) {
+
+  const selectedStatuses = Array.from(statusFilter); 
+  const checkedBoxes = selectedStatuses.filter(box => box.checked);
+  filterStatuses = checkedBoxes.map(box => box.value);
+  
+
+  return jobs.filter(job => {
+    const matchesStatus =
+      filterStatuses.length === 0 ? true : filterStatuses.includes(job.status);
+
+    const matchesSearch =
+      job.title.toLowerCase().includes(searchInput) ||
+      job.company.toLowerCase().includes(searchInput) ||
+      (job.location && job.location.toLowerCase().includes(searchInput));
+
+    return matchesStatus && matchesSearch;
+  });
+}
+
+
+document.getElementById('statusFilter').addEventListener("change", 
+  function(event) {
+    if (event.target.type === "checkbox") 
+    {
+      filterJobs(jobs, filterStatuses, searchInput.value);
+      renderJobs();
+    }
   }
-});
+);
 
 
 
