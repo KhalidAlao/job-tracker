@@ -240,3 +240,8 @@ jobList.addEventListener('click', function(event) {
     }
   }
 });
+
+// Export for testing
+if (typeof module !== "undefined") {
+  module.exports = { filterJobs };
+}
