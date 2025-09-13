@@ -1,6 +1,5 @@
 /* eslint-env jest */
 
-
 import {
     filterJobs,
     sortJobs,
