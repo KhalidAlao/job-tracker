@@ -1,4 +1,4 @@
-const {
+import {
     filterJobs,
     sortJobs,
     initializeJobs,
@@ -6,7 +6,7 @@ const {
     editJob,
     deleteJob,
     saveJobs
-  } = require("../src/jobLogic.js");
+  } from "../src/jobLogic.js";
   
   // Mock localStorage
   const localStorageMock = (() => {
