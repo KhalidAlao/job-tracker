@@ -1,3 +1,14 @@
+/* eslint-env jest */
+
+import {
+  filterJobs,
+  sortJobs,
+  initializeJobs,
+  addJob,
+  editJob,
+  deleteJob,
+  saveJobs
+} from "../src/jobLogic.js";
 import {
     filterJobs,
     sortJobs,
