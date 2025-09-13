@@ -1,53 +1,93 @@
-
+:root {
+  --spacing: 1rem;
+  --radius: 0.5rem;
+  --color-bg: #f9f9f9;
+  --color-surface: #ffffff;
+  --color-card: #e8e8e8;
+  --color-text: #1a1a1a;
+  --color-accent: #646cff;
+}
 
 body {
   font-family: sans-serif;
-  padding: 2rem;
-  background: #f9f9f9;
+  padding: var(--spacing);
+  background: var(--color-bg);
+  line-height: 1.5;
+  color: var(--color-text);
 }
-
 
 main {
   max-width: 800px;
   margin: auto;
-  background: white;
-  padding: 1rem;
-  border-radius: 8px;
+  background: var(--color-surface);
+  padding: var(--spacing);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 #controls {
   display: flex;
-  justify-content: space-between;
-  margin: 1rem 0;
+  flex-direction: column;
+  gap: var(--spacing);
+  margin: var(--spacing) 0;
+}
+
+@media (min-width: 600px) {
+  #controls {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 .job-card {
-  background: #e8e8e8;
-  padding: 1rem;
-  margin: 0.5rem 0;
-  border-radius: 6px;
+  background: var(--color-card);
+  padding: var(--spacing);
+  margin: calc(var(--spacing) / 2) 0;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (min-width: 600px) {
+  .job-card {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+
+button,
+input,
+select {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.6em 1em;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-text);
+  color: white;
   cursor: pointer;
-  transition: border-color 0.25s;
-  color: #ffffff;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: background 0.2s;
 }
 
-.hide {
-  display:none;
+button:hover {
+  background: var(--color-accent);
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+p, span, label {
+  font-size: clamp(0.9rem, 1vw, 1rem);
 }
