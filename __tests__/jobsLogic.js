@@ -1,4 +1,5 @@
-/* eslint-env jest */
+/* global describe, test, expect, beforeEach, afterEach, beforeAll, afterAll, jest, global */
+
 
 import {
     filterJobs,
