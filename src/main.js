@@ -39,9 +39,7 @@ function renderJobs() {
   jobList.innerHTML = ''; 
 
   const filteredJobs = filterJobs(jobs, filterStatuses, searchInput.value);
-  const jobsToRender = currentSort
-    ? sortJobs(filteredJobs, currentSort)
-    : filteredJobs;
+  const jobsToRender = currentSort ? sortJobs(filteredJobs, currentSort) : filteredJobs;
 
   if (jobsToRender.length === 0) {
     jobList.innerHTML = "<p>No job applications yet.</p>";
