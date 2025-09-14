@@ -1,4 +1,4 @@
-/* global describe, test, expect, beforeEach, afterEach, beforeAll, afterAll, jest, global */
+/* global describe, test, expect, beforeEach, jest, global */
 
 
 import {
